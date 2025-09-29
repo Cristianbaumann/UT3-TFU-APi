@@ -1,13 +1,13 @@
 # README - Mini Gestor de Proyectos API
 
-## 🎯 Descripción del Proyecto
+## Descripción del Proyecto
 
 API REST completa para un mini gestor de proyectos que implementa tres componentes modulares:
 - **GestorUsuarios**: Gestión de usuarios del sistema
 - **GestorProyectos**: Gestión de proyectos y asignación de usuarios
 - **GestorTareas**: Gestión de tareas con validaciones cruzadas
 
-## 🏗️ Conceptos Arquitectónicos Implementados
+## Conceptos Arquitectónicos Implementados
 
 ### 1. Componentes e Interfaces
 - **Separación de responsabilidades**: Cada componente maneja su dominio específico
@@ -32,7 +32,7 @@ API REST completa para un mini gestor de proyectos que implementa tres component
 - **Networking**: Red privada para comunicación entre contenedores
 - **Volúmenes persistentes**: Datos de BD no se pierden
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 UT3-TFU-APi/
@@ -60,7 +60,7 @@ UT3-TFU-APi/
 └── README.md               # Este archivo
 ```
 
-## 🚀 Instrucciones de Despliegue
+##  Instrucciones de Despliegue
 
 ### Prerrequisitos
 - Docker y docker-compose instalados
@@ -101,7 +101,7 @@ UT3-TFU-APi/
   - Base de datos: gestor_proyectos
 - **Adminer** (Administrador BD): http://localhost:8080
 
-## 📋 Endpoints Principales
+## Endpoints Principales
 
 ### GestorUsuarios (`/api/v1/usuarios`)
 - `POST /` - Crear usuario
@@ -128,7 +128,7 @@ UT3-TFU-APi/
 - `POST /{id}/asignar_usuario` - Asignar responsable
 - `DELETE /{id}/desasignar_usuario` - Desasignar responsable
 
-## 🧪 Ejecutar Demostración
+## Ejecutar Demostración
 
 Los scripts de demostración prueban todos los conceptos implementados:
 
@@ -146,7 +146,7 @@ scripts\demo_completa.bat
 ### Con Postman:
 Importar la colección desde: http://localhost:8000/docs → "Download OpenAPI schema"
 
-## 🔍 Validaciones Implementadas
+## Validaciones Implementadas
 
 ### Validaciones de Integridad
 - **Emails únicos**: No se permiten usuarios con emails duplicados
@@ -163,7 +163,7 @@ Importar la colección desde: http://localhost:8000/docs → "Download OpenAPI s
 - **Roles válidos**: Solo admin, manager, desarrollador
 - **Prioridades válidas**: Solo alta, media, baja
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 - **Backend**: FastAPI 0.104.1
 - **Base de Datos**: PostgreSQL 15
@@ -173,7 +173,7 @@ Importar la colección desde: http://localhost:8000/docs → "Download OpenAPI s
 - **Servidor**: Uvicorn
 - **Administrador BD**: Adminer
 
-## 📊 Métricas de Escalabilidad
+## Métricas de Escalabilidad
 
 - **Stateless**: ✅ Sin estado en memoria
 - **Paginación**: ✅ Límite configurable de resultados
@@ -181,7 +181,7 @@ Importar la colección desde: http://localhost:8000/docs → "Download OpenAPI s
 - **Health Checks**: ✅ Monitoreo de contenedores
 - **Horizontal Scaling**: ✅ Múltiples instancias compatibles
 
-## 🐳 Comandos Docker Útiles
+## Comandos Docker Útiles
 
 ```bash
 # Ver logs de la API
@@ -203,7 +203,7 @@ docker-compose down -v
 docker-compose build --no-cache
 ```
 
-## 🔧 Variables de Entorno
+## Variables de Entorno
 
 Configurables en `.env`:
 ```
@@ -213,33 +213,33 @@ POSTGRES_PASSWORD=password
 POSTGRES_DB=gestor_proyectos
 ```
 
-## 📈 Monitoreo y Logs
+## Monitoreo y Logs
 
 - **Health Check API**: http://localhost:8000/health
 - **Logs en tiempo real**: `docker-compose logs -f`
 - **Estado de contenedores**: `docker-compose ps`
 - **Uso de recursos**: `docker stats`
 
-## 🎓 Evaluación de Conceptos
+## Evaluación de Conceptos
 
-### ✅ Componentes e Interfaces
+### Componentes e Interfaces
 - [x] Separación clara en GestorUsuarios, GestorProyectos, GestorTareas
 - [x] APIs REST bien definidas para cada componente
 - [x] Interfaces consistentes con schemas Pydantic
 
-### ✅ ACID
+### ACID
 - [x] Transacciones explícitas con commit/rollback
 - [x] Integridad referencial con claves foráneas
 - [x] Validaciones para mantener consistencia
 - [x] PostgreSQL como base ACID completa
 
-### ✅ Escalabilidad Horizontal
+### Escalabilidad Horizontal
 - [x] API completamente stateless
 - [x] Sin variables de sesión o estado compartido
 - [x] Puede ejecutarse en múltiples instancias
 - [x] Paginación para grandes volúmenes
 
-### ✅ Contenedores
+### Contenedores
 - [x] Dockerfile optimizado para producción
 - [x] docker-compose con orquestación completa
 - [x] Networking privado entre servicios
@@ -248,11 +248,10 @@ POSTGRES_DB=gestor_proyectos
 
 ---
 
-## 📞 Soporte
+## Soporte
 
 Para preguntas sobre la implementación o conceptos, revisar:
 1. Documentación interactiva: http://localhost:8000/docs
 2. Scripts de demostración en `/scripts/`
 3. Logs de la aplicación: `docker-compose logs api`
 
-**¡La API está lista para demostrar todos los conceptos de la Unidad 3!** 🎯
