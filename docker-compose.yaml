@@ -1,0 +1,85 @@
+# Docker Compose para Mini Gestor de Proyectos
+# Orquesta la API FastAPI + PostgreSQL con networking y volúmenes persistentes
+
+version: '3.8'
+
+services:
+  # Base de datos PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: mini-gestor-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-gestor_proyectos}
+    volumes:
+      # Volumen persistente para datos de PostgreSQL
+      - postgres_data:/var/lib/postgresql/data
+      # Script de inicialización opcional
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    ports:
+      - "5432:5432"
+    networks:
+      - mini-gestor-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-gestor_proyectos}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # API FastAPI
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mini-gestor-api
+    restart: unless-stopped
+    environment:
+      # Variables de entorno para conexión a DB
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-gestor_proyectos}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-gestor_proyectos}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - mini-gestor-network
+    volumes:
+      # Montar código en desarrollo (opcional, remover en producción)
+      - .:/app:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Adminer para administración de base de datos (opcional)
+  adminer:
+    image: adminer:4-standalone
+    container_name: mini-gestor-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - mini-gestor-network
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+
+# Volúmenes para persistencia de datos
+volumes:
+  postgres_data:
+    driver: local
+    name: mini-gestor-postgres-data
+
+# Red personalizada para comunicación entre servicios
+networks:
+  mini-gestor-network:
+    driver: bridge
+    name: mini-gestor-network
