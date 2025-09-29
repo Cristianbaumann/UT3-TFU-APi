@@ -24,13 +24,13 @@ async def lifespan(app: FastAPI):
     """
     # Startup: Crear tablas de base de datos
     create_tables()
-    print("✅ Tablas de base de datos creadas/verificadas")
-    print("🚀 API Mini Gestor de Proyectos iniciada")
+    print(" Tablas de base de datos creadas/verificadas")
+    print(" API Mini Gestor de Proyectos iniciada")
     
     yield
     
     # Shutdown: Limpiar recursos si es necesario
-    print("🛑 API Mini Gestor de Proyectos detenida")
+    print(" API Mini Gestor de Proyectos detenida")
 
 # Crear instancia de FastAPI con configuración
 app = FastAPI(
@@ -40,23 +40,23 @@ app = FastAPI(
     
     Esta API implementa tres componentes modulares principales:
     
-    ### 🧑‍💼 GestorUsuarios
+    ###  GestorUsuarios
     - Gestión CRUD completa de usuarios
     - Validación de emails únicos
     - Roles de usuario (admin, manager, desarrollador)
     
-    ### 📋 GestorProyectos  
+    ###  GestorProyectos  
     - Gestión CRUD completa de proyectos
     - Asignación/desasignación de usuarios a proyectos
     - Estados de proyecto (activo, pausado, completado)
     
-    ### ✅ GestorTareas
+    ###  GestorTareas
     - Gestión CRUD completa de tareas
     - Asignación de responsables con validación cruzada
     - Estados y prioridades de tareas
     - Validación de pertenencia usuario-proyecto
     
-    ### 🏗️ Arquitectura
+    ### Arquitectura
     - **Servicios sin estado**: Cada request es independiente
     - **Escalabilidad horizontal**: Puede ejecutarse en múltiples instancias
     - **ACID**: Transacciones consistentes con PostgreSQL
@@ -113,7 +113,7 @@ async def root():
     """
     return {
         "message": "Mini Gestor de Proyectos API",
-        "status": "🟢 Operacional",
+        "status": "Operacional",
         "version": "1.0.0",
         "docs": "/docs",
         "redoc": "/redoc",
