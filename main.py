@@ -6,6 +6,7 @@ Cumple con principios ACID, escalabilidad horizontal y despliegue en contenedore
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 import uvicorn
 import os
@@ -139,18 +140,24 @@ async def health_check():
 # Manejo global de errores
 @app.exception_handler(404)
 async def not_found_handler(request, exc):
-    return {
-        "detail": "Endpoint no encontrado",
-        "path": str(request.url),
-        "method": request.method
-    }
+    return JSONResponse(
+        status_code=404,
+        content={
+            "detail": "Endpoint no encontrado",
+            "path": str(request.url),
+            "method": request.method
+        }
+    )
 
 @app.exception_handler(500)
 async def internal_error_handler(request, exc):
-    return {
-        "detail": "Error interno del servidor",
-        "message": "Por favor contacte al administrador del sistema"
-    }
+    return JSONResponse(
+        status_code=500,
+        content={
+            "detail": "Error interno del servidor",
+            "message": "Por favor contacte al administrador del sistema"
+        }
+    )
 
 # Punto de entrada para ejecutar la aplicación
 if __name__ == "__main__":
